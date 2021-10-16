@@ -155,24 +155,41 @@ public class SinglyLinkedList {
         return mainptr;
 
     }
-    public void removeDuplicates(ListNode head){
+
+    public void removeDuplicates(ListNode head) {
         ListNode current = head;
-        while(current != null && current.next != null){
-            if(current.data == current.next.data){
+        while (current != null && current.next != null) {
+            if (current.data == current.next.data) {
                 current.next = current.next.next;
-            }else{
+            } else {
                 current = current.next;
             }
         }
     }
 
+    public ListNode insertInSortedList(int value) {
+        ListNode newNode = new ListNode(value);
+        if (head == null) {
+            return newNode;
+        }
+        ListNode current = head;
+        ListNode temp = null;
+        while (current != null && current.data < newNode.data) {
+            temp = current;
+            current = current.next;
+        }
+        newNode.next = current;
+        temp.next = newNode;
+        return head;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
+        sll.insertFirst(16);
+        sll.insertFirst(10);
+        sll.insertFirst(8);
         sll.insertFirst(1);
-        sll.insertFirst(1);
-        sll.insertFirst(2);
-        sll.insertFirst(3);
-        sll.insertFirst(3);
+        sll.insertFirst(0);
         System.out.println("length of linkedlist is " + sll.length());
         // ListNode revListHead = sll.reverse(sll.head);
         // ListNode middleNode = sll.getMiddleNode();
@@ -180,12 +197,12 @@ public class SinglyLinkedList {
         // System.out.println("Middle node is " + middleNode.data);
         // ListNode nthNode = sll.getNthNodeFromEnd(5);
         // System.out.println("nth node from end is " + nthNode.data);
-         // sll.removeDuplicates(sll.head);
+        // sll.removeDuplicates(sll.head);
         // if(sll.find(sll.head, 11)){
         // System.out.println();
         // System.out.println("Search key found");
         // }
-
+        // sll.insertInSortedList(11);
         sll.display(sll.head);
     }
 
