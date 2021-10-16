@@ -1,4 +1,7 @@
 package Linkedlist;
+
+import java.util.List;
+
 public class SinglyLinkedList {
     private static class ListNode {
         public ListNode(int data) {
@@ -100,7 +103,20 @@ public class SinglyLinkedList {
         }
         return false;
     }
-
+    public ListNode reverse(ListNode head){
+        if(head == null)
+        return head;
+        ListNode current = head;
+        ListNode previous = null;
+        ListNode next = null;
+        while(current != null){
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
+    }
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.insertFirst(11);
@@ -108,7 +124,8 @@ public class SinglyLinkedList {
         sll.insertFirst(1);
         sll.insertAtPos(20, 4);
         System.out.println("length of linkedlist is " + sll.length());
-        sll.display();
+      ListNode revListHead =   sll.reverse(sll.head);
+        sll.display(revListHead);
         // if(sll.find(sll.head, 11)){
         // System.out.println();
         // System.out.println("Search key found");
@@ -125,7 +142,7 @@ public class SinglyLinkedList {
         return length;
     }
 
-    public void display() {
+    public void display(ListNode head) {
         ListNode current = head;
         while (current != null) {
             System.out.print(current.data + " ");
