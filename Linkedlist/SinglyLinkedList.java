@@ -1,6 +1,6 @@
 package Linkedlist;
 
-import java.util.List;
+import java.sql.Ref;
 
 public class SinglyLinkedList {
     private static class ListNode {
@@ -103,13 +103,14 @@ public class SinglyLinkedList {
         }
         return false;
     }
-    public ListNode reverse(ListNode head){
-        if(head == null)
-        return head;
+
+    public ListNode reverse(ListNode head) {
+        if (head == null)
+            return head;
         ListNode current = head;
         ListNode previous = null;
         ListNode next = null;
-        while(current != null){
+        while (current != null) {
             next = current.next;
             current.next = previous;
             previous = current;
@@ -117,19 +118,75 @@ public class SinglyLinkedList {
         }
         return previous;
     }
+
+    public ListNode getMiddleNode() {
+        if (head == null)
+            return null;
+        ListNode slowptr = head;
+        ListNode fastptr = head;
+        while (fastptr != null && fastptr.next != null) {
+            slowptr = slowptr.next;
+            fastptr = fastptr.next.next;
+        }
+        return slowptr;
+    }
+
+    public ListNode getNthNodeFromEnd(int n) {
+        if (head == null)
+            return null;
+        if (n <= 0) {
+            throw new IllegalArgumentException("Invalid value of n" + n);
+        }
+        ListNode mainptr = head;
+        ListNode refPtr = head;
+        int count = 0;
+        while (count < n) {
+            if (refPtr == null) {
+                throw new IllegalArgumentException("n is greater than the no of nodes in  list");
+            }
+            refPtr = refPtr.next;
+            count++;
+        }
+        while (refPtr != null) {
+            refPtr = refPtr.next;
+            mainptr = mainptr.next;
+        }
+
+        return mainptr;
+
+    }
+    public void removeDuplicates(ListNode head){
+        ListNode current = head;
+        while(current != null && current.next != null){
+            if(current.data == current.next.data){
+                current.next = current.next.next;
+            }else{
+                current = current.next;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
-        sll.insertFirst(11);
-        sll.insertFirst(8);
         sll.insertFirst(1);
-        sll.insertAtPos(20, 4);
+        sll.insertFirst(1);
+        sll.insertFirst(2);
+        sll.insertFirst(3);
+        sll.insertFirst(3);
         System.out.println("length of linkedlist is " + sll.length());
-      ListNode revListHead =   sll.reverse(sll.head);
-        sll.display(revListHead);
+        // ListNode revListHead = sll.reverse(sll.head);
+        // ListNode middleNode = sll.getMiddleNode();
+        // System.out.println();
+        // System.out.println("Middle node is " + middleNode.data);
+        // ListNode nthNode = sll.getNthNodeFromEnd(5);
+        // System.out.println("nth node from end is " + nthNode.data);
+         // sll.removeDuplicates(sll.head);
         // if(sll.find(sll.head, 11)){
         // System.out.println();
         // System.out.println("Search key found");
         // }
+
+        sll.display(sll.head);
     }
 
     public int length() {
