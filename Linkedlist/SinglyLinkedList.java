@@ -183,6 +183,24 @@ public class SinglyLinkedList {
         return head;
     }
 
+    public void removeKey(int value) {
+        if (head == null)
+            return;
+        ListNode current = head;
+        ListNode temp = null;
+        if (current != null && current.data == value) {
+            head = current.next;
+            return;
+        }
+        while (current != null && current.data != value) {
+            temp = current;
+            current = current.next;
+        }
+        if (current == null)
+            return;
+        temp.next = current.next;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.insertFirst(16);
@@ -203,6 +221,7 @@ public class SinglyLinkedList {
         // System.out.println("Search key found");
         // }
         // sll.insertInSortedList(11);
+        // sll.removeKey(0);
         sll.display(sll.head);
     }
 
